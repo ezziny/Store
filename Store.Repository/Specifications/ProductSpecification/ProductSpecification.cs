@@ -15,5 +15,10 @@ public class ProductSpecification
         get { return _pageSize; }
         set { _pageSize = (value>MAXPAGESIZE)? MAXPAGESIZE: value; }
     }
-    
+    private string? _search;
+    public string? Search
+    {
+        get => _search;
+        set => _search = value?.Trim().ToLower();
+    }
 }

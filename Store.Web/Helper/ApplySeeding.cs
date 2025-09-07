@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Store.Data.Contexts;
 using Store.Repository;
 
-namespace Store.Web;
+namespace Store.Web.Helper;
 
 public class ApplySeeding
 {
