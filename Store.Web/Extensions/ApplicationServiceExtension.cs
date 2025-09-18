@@ -5,6 +5,8 @@ using Store.Data.Contexts;
 using Store.Repository.Interfaces;
 using Store.Repository.Repositories;
 using Store.Services.HandleResponses;
+using Store.Services.Services.BasketService;
+using Store.Services.Services.BasketService.Dtos;
 using Store.Services.Services.CacheService;
 using Store.Services.Services.Product;
 using Store.Services.Services.Product.Dtos;
@@ -18,7 +20,9 @@ public static class ApplicationServiceExtension
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IBasketRepository,BasketRepository>();
         services.AddAutoMapper(typeof(ProductProfile));
+        services.AddAutoMapper(typeof(BasketProfile));
         services.Configure<ApiBehaviorOptions>(options =>
         {
             options.InvalidModelStateResponseFactory = actionContext =>
@@ -33,6 +37,7 @@ public static class ApplicationServiceExtension
         });
         services.AddScoped<IProductService, ProductService>();
         services.AddScoped<ICacheService, CacheService>();
+        services.AddScoped<IBasketService, BasketService>();
 
         return services;
     }

@@ -31,12 +31,17 @@ public class Program
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
         }
         );
+        builder.Services.AddDbContext<StoreIdentityDbContext>(options =>
+        {
+            options.UseSqlServer(builder.Configuration.GetConnectionString("IdentityConnection"));
+        }
+        );
         builder.Services.AddSingleton<IConnectionMultiplexer>(_ =>
         {
             return ConnectionMultiplexer.Connect(builder.Configuration.GetConnectionString("Redis")!);
         });
         builder.Services.AddAplicationServices();
-
+        builder.Services.AddIdentityServices();
         var app = builder.Build();
         await ApplySeeding.ApplySeedingAsync(app);
 
@@ -50,6 +55,8 @@ public class Program
         app.UseStaticFiles();
 
         app.UseHttpsRedirection();
+
+        app.UseAuthentication();
 
         app.UseAuthorization();
 

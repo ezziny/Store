@@ -27,6 +27,8 @@ public class StoreContextSeed
             await SeedEntityAsync(context.ProductBrands, "../Store.Repository/SeedData/brands.json");
             await SeedEntityAsync(context.ProductTypes, "../Store.Repository/SeedData/types.json");
             await SeedEntityAsync(context.Products, "../Store.Repository/SeedData/products.json");
+            await SeedEntityAsync(context.DeliveryMethods, "../Store.Repository/SeedData/delivery.json");
+
             await context.SaveChangesAsync();
         }
         catch(Exception e)
