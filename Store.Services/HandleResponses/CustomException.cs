@@ -1,6 +1,3 @@
-using System;
-using Microsoft.Identity.Client;
-
 namespace Store.Services.HandleResponses;
 
 public class CustomException : Response

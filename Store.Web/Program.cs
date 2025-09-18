@@ -1,16 +1,6 @@
-using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using StackExchange.Redis;
 using Store.Data.Contexts;
-using Store.Repository;
-using Store.Repository.Interfaces;
-using Store.Repository.Repositories;
-using Store.Services.HandleResponses;
-using Store.Services.Services.Product;
-using Store.Services.Services.Product.Dtos;
 using Store.Web.Extensions;
 using Store.Web.Helper;
 using Store.Web.Middlewares;
@@ -31,12 +21,19 @@ public class Program
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
         }
         );
+        builder.Services.AddDbContext<StoreIdentityDbContext>(options =>
+        {
+            options.UseSqlServer(builder.Configuration.GetConnectionString("IdentityConnection"));
+        }
+        );
         builder.Services.AddSingleton<IConnectionMultiplexer>(_ =>
         {
             return ConnectionMultiplexer.Connect(builder.Configuration.GetConnectionString("Redis")!);
         });
         builder.Services.AddAplicationServices();
-
+        builder.Services.AddIdentityServices(builder.Configuration);
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerDocumentation();
         var app = builder.Build();
         await ApplySeeding.ApplySeedingAsync(app);
 
@@ -50,6 +47,8 @@ public class Program
         app.UseStaticFiles();
 
         app.UseHttpsRedirection();
+
+        app.UseAuthentication();
 
         app.UseAuthorization();
 

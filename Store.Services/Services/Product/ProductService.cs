@@ -1,8 +1,6 @@
-using System;
 using AutoMapper;
 using Store.Data.Entities;
 using Store.Repository.Interfaces;
-using Store.Repository.Specifications;
 using Store.Repository.Specifications.ProductSpecification;
 using Store.Services.Helper;
 using Store.Services.Services.Product.Dtos;

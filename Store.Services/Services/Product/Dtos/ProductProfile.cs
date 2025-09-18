@@ -1,6 +1,4 @@
-using System;
 using AutoMapper;
-using Microsoft.Extensions.Options;
 using Store.Data.Entities;
 
 namespace Store.Services.Services.Product.Dtos;

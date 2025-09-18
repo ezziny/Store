@@ -1,4 +1,3 @@
-using System;
 using Store.Data.Entities;
 
 namespace Store.Repository.Interfaces;

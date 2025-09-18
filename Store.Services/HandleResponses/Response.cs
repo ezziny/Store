@@ -1,5 +1,3 @@
-using System;
-
 namespace Store.Services.HandleResponses;
 
 public class Response

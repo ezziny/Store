@@ -1,5 +1,3 @@
-using System;
-
 namespace Store.Data.Entities;
 
 public class BaseEntity<T>

@@ -1,7 +1,7 @@
-using System;
-using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Store.Data.Contexts;
+using Store.Data.Entities.IdentityEntities;
 using Store.Repository;
 
 namespace Store.Web.Helper;
@@ -16,8 +16,10 @@ public class ApplySeeding
         try
         {
             var context = services.GetRequiredService<StoreDbContext>();
+            var userManager = services.GetRequiredService<UserManager<AppUser>>();
             await context.Database.MigrateAsync();
             await StoreContextSeed.SeedAsync(context, loggerFactory);
+            await ApplyIdentitySeeding.SeedUserAsync(userManager);
         }
         catch (Exception e)
         {

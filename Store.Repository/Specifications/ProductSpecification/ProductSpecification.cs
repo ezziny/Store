@@ -1,5 +1,3 @@
-using System;
-
 namespace Store.Repository.Specifications.ProductSpecification;
 
 public class ProductSpecification

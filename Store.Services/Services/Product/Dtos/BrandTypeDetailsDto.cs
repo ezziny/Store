@@ -1,5 +1,3 @@
-using System;
-
 namespace Store.Services.Services.Product.Dtos;
 
 public class BrandTypeDetailsDto

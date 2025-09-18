@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Store.Repository.Specifications.ProductSpecification;
 using Store.Services.Services.Product;
@@ -7,9 +6,7 @@ using Store.Web.Helper;
 
 namespace Store.Web.Controllers
 {
-    [Route("api/[controller]/[action]")]
-    [ApiController]
-    public class ProductsController : ControllerBase
+    public class ProductsController : BaseController
     {
         private readonly IProductService _productService;
 

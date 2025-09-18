@@ -1,5 +1,3 @@
-using System;
-
 namespace Store.Services.Helper;
 
 public class PaginatedResultDto<T>

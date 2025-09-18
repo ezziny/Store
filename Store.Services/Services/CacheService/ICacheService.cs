@@ -1,5 +1,3 @@
-using System;
-
 namespace Store.Services.Services.CacheService;
 
 public interface ICacheService

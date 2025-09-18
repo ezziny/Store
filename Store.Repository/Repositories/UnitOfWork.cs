@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Dynamic;
 using Store.Data.Contexts;
 using Store.Data.Entities;
 using Store.Repository.Interfaces;

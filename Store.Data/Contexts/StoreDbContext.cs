@@ -1,4 +1,3 @@
-using System;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Store.Data.Entities;
@@ -13,10 +12,11 @@ public class StoreDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         base.OnModelCreating(modelBuilder);
     }
     public DbSet<Product> Products { get; set; }
     public DbSet<ProductType> ProductTypes { get; set; }
     public DbSet<ProductBrand> ProductBrands { get; set; }
+    public DbSet<DeliveryMethod> DeliveryMethods { get; set; }
 }

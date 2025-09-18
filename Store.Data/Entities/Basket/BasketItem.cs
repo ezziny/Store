@@ -1,4 +1,4 @@
-namespace Store.Repository.Basket.Models;
+namespace Store.Data.Entities.Basket;
 
 public class BasketItem
 {
