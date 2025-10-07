@@ -50,7 +50,7 @@ public class PaymentService: IPaymentService
         {
             var options = new PaymentIntentCreateOptions
             {
-                Amount = (long)basket.BasketItems.Sum(i => ((i.Price) * (i.Quantity) + (long)shippingPrice)*100),
+                Amount = (long)((basket.BasketItems.Sum(i => i.Price * i.Quantity) + shippingPrice) * 100),
                 Currency = "usd",
                 PaymentMethodTypes = new List<string>{"card"}
             };

@@ -6,6 +6,7 @@ using Store.Repository.Interfaces;
 using Store.Repository.Specifications.OrderSpecification;
 using Store.Services.Services.BasketService;
 using Store.Services.Services.OrderService.Dtos;
+using Store.Services.Services.PaymentService;
 
 namespace Store.Services.Services.OrderService;
 
@@ -14,12 +15,14 @@ public class OrderService : IOrderService
     private readonly IBasketService _basketService;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
+    private readonly IPaymentService _paymentService;
 
-    public OrderService(IBasketService basketService, IUnitOfWork unitOfWork, IMapper mapper)
+    public OrderService(IBasketService basketService, IUnitOfWork unitOfWork, IMapper mapper, IPaymentService paymentService)
     {
         _basketService = basketService;
         _unitOfWork = unitOfWork;
         _mapper = mapper;
+        _paymentService = paymentService;
     }
     
     public async Task<OrderDetailsDto> CreateOrderAsync(OrderDto input)
@@ -48,7 +51,8 @@ public class OrderService : IOrderService
                 Quantity = basketItem.Quantity,
                 ProductItem = itemOrdered
             };
-            var mappedOderItem = _mapper.Map<OrderItem>(orderItem);
+            orderItems.Add(orderItem);
+
         }
         #endregion
 
@@ -63,6 +67,14 @@ public class OrderService : IOrderService
         #endregion
         // TODO PAYMENT
 
+        #region Payment
+        var specs = new OrderWithPaymentIntentSpecification(basket.PaymentIntentId);
+        var existingOrder = await _unitOfWork.Repository<Order, Guid>().GetWithSpecificationByIdAsync(specs);
+        if (existingOrder is null)
+            await _paymentService.CreateOrUpdatePaymentIntent(basket);
+        
+        #endregion
+
         #region CreateOrder
         var mappedShippingAdress = _mapper.Map<ShippingAddress>(input.ShippingAdress);
         var mappedOrderItems = _mapper.Map<List<OrderItem>>(orderItems);
@@ -74,6 +86,7 @@ public class OrderService : IOrderService
             BasketId = input.BasketId,
             DeliveryMethodId = deliveryMethod.Id,
             Subtotal = subTotal,
+            PaymentIntentId = basket.PaymentIntentId
         };
         await _unitOfWork.Repository<Order, Guid>().AddAsync(order);
         await _unitOfWork.CompleteAsync();

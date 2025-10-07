@@ -34,6 +34,12 @@ public class Program
         builder.Services.AddIdentityServices(builder.Configuration);
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerDocumentation();
+        // builder.Services.AddCors(o => {
+        //     o.AddPolicy("CorsPolicy", p =>
+        //     {
+        //         p.AllowAnyHeader().AllowAnyMethod().WithOrigins("http:localhost:4200", "whatever b2a");
+        //     });
+        // });
         var app = builder.Build();
         await ApplySeeding.ApplySeedingAsync(app);
 
