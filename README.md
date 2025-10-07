@@ -1,8 +1,8 @@
-# 🛍️ Store API
+# Store API
 
 A comprehensive e-commerce API built with ASP.NET Core and .NET 9, featuring a clean architecture with advanced caching, authentication, and payment processing capabilities.
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Features](#-features)
 - [Architecture](#-architecture)
