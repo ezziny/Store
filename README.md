@@ -67,7 +67,7 @@ This project follows Clean Architecture principles with clear separation of conc
 1. **Clone the repository**
    ```bash
    git clone https://github.com/ezziny/Store.git
-   cd store-api
+   cd Store
    ```
 
 2. **Restore dependencies**
